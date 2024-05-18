@@ -1,7 +1,15 @@
 import streamlit as st
 import pandas as pd
 import requests
-import matplotlib.pyplot as plt
+import subprocess
+import sys
+
+# Verificar e instalar Matplotlib se não estiver instalado
+try:
+    import matplotlib.pyplot as plt
+except ModuleNotFoundError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "matplotlib"])
+    import matplotlib.pyplot as plt
  
 st.write("""
 # My first app
