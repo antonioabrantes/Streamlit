@@ -34,7 +34,7 @@ try:
     df['count'] = pd.to_numeric(df['count'], errors='coerce')
 
     # Mostrar o DataFrame
-    st.write("## Patents Data", df)
+    st.write("## 15.23", df)
 
     # Exibir o gráfico de linhas
     # st.line_chart(df.set_index('divisao')['count'])
@@ -46,10 +46,14 @@ try:
     for i, label in enumerate(df['divisao']):
         ax.axvline(x=i, color='gray', linestyle='--', linewidth=0.5)
 
+    # Adicionar linhas horizontais
+    for count in df['count']:
+        ax.axhline(y=count, color='gray', linestyle='--', linewidth=0.5)
+        
     # Adicionar rótulos e título
     ax.set_xlabel('Divisão')
     ax.set_ylabel('Count')
-    ax.set_title('Patents by Division')
+    ax.set_title('Incidência por Divisão Técnica')
     ax.set_xticks(range(len(df['divisao'])))
     ax.set_xticklabels(df['divisao'], rotation=90)
 
