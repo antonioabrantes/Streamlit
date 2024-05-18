@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import requests
+import matplotlib.pyplot as plt
  
 st.write("""
 # My first app
@@ -35,7 +36,24 @@ try:
     st.write("## Patents Data", df)
 
     # Exibir o gráfico de linhas
-    st.line_chart(df.set_index('divisao')['count'])
+    # st.line_chart(df.set_index('divisao')['count'])
+    
+    fig, ax = plt.subplots()
+    ax.plot(df['divisao'], df['count'], marker='o')
+
+    # Adicionar linhas verticais
+    for i, label in enumerate(df['divisao']):
+        ax.axvline(x=i, color='gray', linestyle='--', linewidth=0.5)
+
+    # Adicionar rótulos e título
+    ax.set_xlabel('Divisão')
+    ax.set_ylabel('Count')
+    ax.set_title('Patents by Division')
+    ax.set_xticks(range(len(df['divisao'])))
+    ax.set_xticklabels(df['divisao'], rotation=90)
+
+    # Mostrar o gráfico no Streamlit
+    st.pyplot(fig)
 
 except requests.exceptions.HTTPError as http_err:
     st.error(f"HTTP error occurred: {http_err}")
