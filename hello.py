@@ -28,6 +28,7 @@ try:
 
     # Carregar os dados JSON em um DataFrame
     df = pd.DataFrame(data['patents'])
+    df['divisao'] = df['divisao'].fillna('Unknown')
 
     # Verificar e converter a coluna 'count' para inteiro
     df['count'] = pd.to_numeric(df['count'], errors='coerce')
