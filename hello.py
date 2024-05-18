@@ -4,8 +4,8 @@ import requests
 import matplotlib.pyplot as plt
  
 st.write("""
-# My first app
-Olá mundo* 
+# Pedidos de patente sub judice
+(15.23)* 
 """)
 # df = pd.read_csv("my_data.csv")
 # st.line_chart(df)
@@ -34,7 +34,7 @@ try:
     df['count'] = pd.to_numeric(df['count'], errors='coerce')
 
     # Mostrar o DataFrame
-    st.write("## 15.23", df)
+    st.write("Valores", df)
 
     # Exibir o gráfico de linhas
     # st.line_chart(df.set_index('divisao')['count'])
