@@ -4,7 +4,7 @@ import requests
 import matplotlib.pyplot as plt
  
 st.write("""
-# Pedidos de patente sub judice (15.23) 
+# Pedidos de patente sub judice (código 15.23) 
 """)
 # df = pd.read_csv("my_data.csv")
 # st.line_chart(df)
