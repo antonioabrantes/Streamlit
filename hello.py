@@ -11,5 +11,5 @@ chart_selection = st.radio("Selecione o gráfico:", ("ChatCGP/OpenAI", "Gemini/G
 
 if chart_selection == "ChatCGP/OpenAI":
     st.write(""" ChatCGP/OpenAI """)
-elif if chart_selection == "ChatCGP/OpenAI":
+elif chart_selection == "ChatCGP/OpenAI":
     st.write(""" Gemini/Google  """)
