@@ -20,15 +20,23 @@ chart_selection = st.radio("Selecione o gráfico:", ("ChatCGP/OpenAI", "Gemini/G
 if chart_selection == "ChatCGP/OpenAI":
     st.write("ChatCGP/OpenAI")
     
-    openai.api_key = os.getenv("CHATGPT_API_KEY")
- 
-    response = openai.Completion.create(
-      engine="text-davinci-003",
-      prompt="Escreva um poema sobre a lua.",
-      max_tokens=50
-    )
+    # Set your OpenAI API key
+    openai.api_key = st.secrets["CHATGPT_API_KEY"]
 
-    st.write(response.choices[0].text.strip())
+    st.title("OpenAI API Example")
+
+    # Get user input
+    user_input = st.text_input("Ask something:")
+
+    if user_input:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": user_input}
+            ]
+        )
+        st.write(response.choices[0].message['content'])
 
 elif chart_selection == "Gemini/Google":
     st.write("Gemini/Google ")
