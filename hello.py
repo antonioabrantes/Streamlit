@@ -9,7 +9,7 @@ import numpy as np
 import os
 import sys
 import time
-from openai import OpenAI
+import openai
  
 st.write(""" Teste comparativo de IA generativa """)
 
@@ -21,6 +21,7 @@ if chart_selection == "ChatCGP/OpenAI":
     st.write("ChatCGP/OpenAI")
     
     # Set your OpenAI API key
+    from openai import OpenAI
     openai.api_key = os.getenv("CHATGPT_API_KEY")
     
     st.title("OpenAI API Example")
