@@ -9,7 +9,7 @@ import numpy as np
 import os
 import sys
 import time
-import openai
+from openai import OpenAI
  
 st.write(""" Teste comparativo de IA generativa """)
 
@@ -25,19 +25,39 @@ if chart_selection == "ChatCGP/OpenAI":
 
     st.title("OpenAI API Example")
 
+    # all client options can be configured just like the `OpenAI` instantiation counterpart
+    openai.api_base = 'https://api.openai.com/v1'
+    openai.default_headers = {"x-foo": "true"}
+
     user_input = st.text_input("Pergunte algo:")
     if user_input:
         try:
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "system", "content": "You are a helpful assistant."},
-                    {"role": "user", "content": user_input}
-                ]
-            )
-            st.write(response.choices[0].message['content'])
-        except Exception as e:
-            st.error(f"Ocorreu um erro: {e}")
+        completion = openai.chat.completions.create(
+            model="gpt-4",
+            messages=[
+                {
+                    "role": "user",
+                    "content": "O que é uma patente ?",
+                },
+            ],
+        )
+        st.write(completion.choices[0].message.content)
+    except Exception as e:
+        st.error(f"Ocorreu um erro: {e}")
+   
+#    user_input = st.text_input("Pergunte algo:")
+#    if user_input:
+#        try:
+#            response = openai.ChatCompletion.create(
+#                model="gpt-3.5-turbo",
+#                messages=[
+#                    {"role": "system", "content": "You are a helpful assistant."},
+#                    {"role": "user", "content": user_input}
+#                ]
+#            )
+#            st.write(response.choices[0].message['content'])
+#        except Exception as e:
+#            st.error(f"Ocorreu um erro: {e}")
 
 elif chart_selection == "Gemini/Google":
     st.write("Gemini/Google ")
