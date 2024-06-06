@@ -25,18 +25,19 @@ if chart_selection == "ChatCGP/OpenAI":
 
     st.title("OpenAI API Example")
 
-    # Get user input
-    user_input = st.text_input("Ask something:")
-
+    user_input = st.text_input("Pergunte algo:")
     if user_input:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": user_input}
-            ]
-        )
-        st.write(response.choices[0].message['content'])
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "user", "content": user_input}
+                ]
+            )
+            st.write(response.choices[0].message['content'])
+        except Exception as e:
+            st.error(f"Ocorreu um erro: {e}")
 
 elif chart_selection == "Gemini/Google":
     st.write("Gemini/Google ")
