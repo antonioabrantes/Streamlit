@@ -2,6 +2,18 @@ import streamlit as st
 import pandas as pd
 import requests
 import matplotlib.pyplot as plt
+
+from pathlib import Path
+import google.generativeai as genai
+from dotenv import load_dotenv
+import pandas as pd
+import numpy as np
+import os
+import sys
+import time
+from jobs_details import jobs_details as data
+from dotenv import load_dotenv
+
  
 st.write(""" Teste comparativo de IA generativa """)
 

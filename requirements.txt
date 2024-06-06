@@ -2,3 +2,10 @@ streamlit
 pandas
 requests
 matplotlib
+numpy
+streamlit_echarts
+pyecharts 
+python-dotenv
+google-generativeai
+PyPDF2 
+pdfplumber
