@@ -9,7 +9,7 @@ import numpy as np
 import os
 import sys
 import time
-
+import openai
  
 st.write(""" Teste comparativo de IA generativa """)
 
@@ -19,6 +19,17 @@ chart_selection = st.radio("Selecione o gráfico:", ("ChatCGP/OpenAI", "Gemini/G
 
 if chart_selection == "ChatCGP/OpenAI":
     st.write("ChatCGP/OpenAI")
+    
+    openai.api_key = os.getenv("CHATGPT_API_KEY")
+ 
+    response = openai.Completion.create(
+      engine="text-davinci-003",
+      prompt="Escreva um poema sobre a lua.",
+      max_tokens=50
+    )
+
+    st.write(response.choices[0].text.strip())
+
 elif chart_selection == "Gemini/Google":
     st.write("Gemini/Google ")
     
