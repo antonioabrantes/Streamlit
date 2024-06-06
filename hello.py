@@ -32,18 +32,18 @@ if chart_selection == "ChatCGP/OpenAI":
     user_input = st.text_input("Pergunte algo:")
     if user_input:
         try:
-        completion = openai.chat.completions.create(
-            model="gpt-4",
-            messages=[
-                {
-                    "role": "user",
-                    "content": "O que é uma patente ?",
-                },
-            ],
-        )
-        st.write(completion.choices[0].message.content)
-    except Exception as e:
-        st.error(f"Ocorreu um erro: {e}")
+            completion = openai.chat.completions.create(
+                model="gpt-4",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": "O que é uma patente ?",
+                    },
+                ],
+            )
+            st.write(completion.choices[0].message.content)
+        except Exception as e:
+            st.error(f"Ocorreu um erro: {e}")
    
 #    user_input = st.text_input("Pergunte algo:")
 #    if user_input:
