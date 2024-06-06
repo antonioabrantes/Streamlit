@@ -34,7 +34,7 @@ if chart_selection == "ChatCGP/OpenAI":
     if user_input:
         try:
             completion = openai.chat.completions.create(
-                model="gpt-3.5",
+                model="gpt-3.5-turbo",
                 messages=[
                     {
                         "role": "user",
