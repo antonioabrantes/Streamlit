@@ -21,8 +21,8 @@ if chart_selection == "ChatCGP/OpenAI":
     st.write("ChatCGP/OpenAI")
     
     # Set your OpenAI API key
-    openai.api_key = st.secrets["CHATGPT_API_KEY"]
-
+    openai.api_key = os.getenv("CHATGPT_API_KEY")
+    
     st.title("OpenAI API Example")
 
     # all client options can be configured just like the `OpenAI` instantiation counterpart
