@@ -11,6 +11,28 @@ import sys
 import time
 import openai
 
+
+# https://echarts.streamlit.app/
+# Adicionando título 
+# https://emojipedia.org/search?q=spy
+st.title('Estatísticas 📊️')
+
+# Função para renderizar o gráfico selecionado
+def render_chart(chart_option):
+    st_echarts(options=chart_option, height="400px")
+
+# Define as opções para os dois gráficos
+
+option2 = {
+    "xAxis": {
+        "type": "category",
+        "data": ["A", "B", "C", "D", "E"],
+    },
+    "yAxis": {"type": "value"},
+    "series": [{"data": [10, 20, 30, 40, 50], "type": "bar"}],
+}
+
+
 texto = "Tempo de concessão de PI em anos x 100"
 # st.write(texto)
 st.markdown(f"""<div style="text-align: center; font-weight: bold; font-size: 14px;">{texto}</div>""", unsafe_allow_html=True)
