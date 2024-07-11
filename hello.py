@@ -1,15 +1,15 @@
-import streamlit as st
-import pandas as pd
-import requests
-import matplotlib.pyplot as plt
+    import streamlit as st
+    import pandas as pd
+    import requests
+    import matplotlib.pyplot as plt
 
-from pathlib import Path
-import google.generativeai as genai
-import numpy as np
-import os
-import sys
-import time
-import openai
+    from pathlib import Path
+    import google.generativeai as genai
+    import numpy as np
+    import os
+    import sys
+    import time
+    import openai
 
     texto = "Tempo de concessão de PI em anos x 100"
     # st.write(texto)
