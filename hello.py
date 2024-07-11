@@ -1,70 +1,70 @@
-    import streamlit as st
-    import pandas as pd
-    import requests
-    import matplotlib.pyplot as plt
+import streamlit as st
+import pandas as pd
+import requests
+import matplotlib.pyplot as plt
 
-    from pathlib import Path
-    import google.generativeai as genai
-    import numpy as np
-    import os
-    import sys
-    import time
-    import openai
+from pathlib import Path
+import google.generativeai as genai
+import numpy as np
+import os
+import sys
+import time
+import openai
 
-    texto = "Tempo de concessão de PI em anos x 100"
-    # st.write(texto)
-    st.markdown(f"""<div style="text-align: center; font-weight: bold; font-size: 14px;">{texto}</div>""", unsafe_allow_html=True)
-    
-    # SELECT data,round(100*tempo_concessoes) as tempo FROM estoque WHERE ano>=2010 and data<='2024-05-01' order by data asc;
-    url = "http://www.cientistaspatentes.com.br/apiphp/patents/query/?q={%22mysql_query%22:%22data,round(100*tempo_concessoes) as tempo FROM estoque WHERE ano>=2010 and data<='2024-05-01' order by data asc%22}"
+texto = "Tempo de concessão de PI em anos x 100"
+# st.write(texto)
+st.markdown(f"""<div style="text-align: center; font-weight: bold; font-size: 14px;">{texto}</div>""", unsafe_allow_html=True)
 
-    # Definindo cabeçalhos para a requisição
-    headers = {
-        "Accept": "application/json",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+# SELECT data,round(100*tempo_concessoes) as tempo FROM estoque WHERE ano>=2010 and data<='2024-05-01' order by data asc;
+url = "http://www.cientistaspatentes.com.br/apiphp/patents/query/?q={%22mysql_query%22:%22data,round(100*tempo_concessoes) as tempo FROM estoque WHERE ano>=2010 and data<='2024-05-01' order by data asc%22}"
+
+# Definindo cabeçalhos para a requisição
+headers = {
+    "Accept": "application/json",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+}
+
+
+try:
+    # Requisição para obter os dados JSON
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()  # Verificar se a requisição foi bem-sucedida
+
+    # Tentar decodificar o JSON
+    data = response.json()
+
+    # Carregar os dados JSON em um DataFrame
+    df = pd.DataFrame(data['patents'])
+    df['data'] = df['data'].fillna('Unknown')
+
+    # Verificar e converter a coluna 'count' para inteiro
+    df['tempo'] = pd.to_numeric(df['tempo'], errors='coerce')
+
+    # Mostrar o DataFrame
+    # st.write("Valores", df)
+
+    data = df['data'].tolist()
+    tempo = df['tempo'].tolist()
+
+    option2 = {
+        "xAxis": {
+            "type": "category",
+            "data": data,
+        },
+        "yAxis": {"type": "value"},
+        "series": [{"data": tempo, "type": "line"}],
     }
+    
+    render_chart(option2)
 
-
-    try:
-        # Requisição para obter os dados JSON
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()  # Verificar se a requisição foi bem-sucedida
-
-        # Tentar decodificar o JSON
-        data = response.json()
-
-        # Carregar os dados JSON em um DataFrame
-        df = pd.DataFrame(data['patents'])
-        df['data'] = df['data'].fillna('Unknown')
-
-        # Verificar e converter a coluna 'count' para inteiro
-        df['tempo'] = pd.to_numeric(df['tempo'], errors='coerce')
-
-        # Mostrar o DataFrame
-        # st.write("Valores", df)
-
-        data = df['data'].tolist()
-        tempo = df['tempo'].tolist()
-
-        option2 = {
-            "xAxis": {
-                "type": "category",
-                "data": data,
-            },
-            "yAxis": {"type": "value"},
-            "series": [{"data": tempo, "type": "line"}],
-        }
-        
-        render_chart(option2)
-
-    except requests.exceptions.HTTPError as http_err:
-        st.error(f"HTTP error occurred: {http_err}")
-    except requests.exceptions.RequestException as req_err:
-        st.error(f"Error occurred during request: {req_err}")
-    except ValueError as json_err:
-        st.error(f"JSON decode error: {json_err}")
-    except Exception as err:
-        st.error(f"An unexpected error occurred: {err}")
+except requests.exceptions.HTTPError as http_err:
+    st.error(f"HTTP error occurred: {http_err}")
+except requests.exceptions.RequestException as req_err:
+    st.error(f"Error occurred during request: {req_err}")
+except ValueError as json_err:
+    st.error(f"JSON decode error: {json_err}")
+except Exception as err:
+    st.error(f"An unexpected error occurred: {err}")
 
 
 """
