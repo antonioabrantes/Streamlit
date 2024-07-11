@@ -11,6 +11,12 @@ import sys
 import time
 import openai
 
+from streamlit_echarts import st_echarts
+import random
+from pyecharts.charts import Bar
+from pyecharts import options as opts
+from streamlit_echarts import st_pyecharts
+
 
 # https://echarts.streamlit.app/
 # Adicionando título 
