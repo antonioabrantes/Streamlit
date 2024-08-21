@@ -39,7 +39,14 @@ arquivos_e_pastas = os.listdir()
 arquivos = [f for f in arquivos_e_pastas if os.path.isfile(f)]
 for arquivo in arquivos:
     st.write(arquivo)
-
+with open(file_path, "rb") as file:
+    st.download_button(
+        label="Baixar teste.txt",
+        data=file,
+        file_name="teste.txt",
+        mime="text/plain"
+    )
+    
 # Captura os parâmetros da URL
 # https://app-helloabrantes.streamlit.app/?numero=112012018157&doc=US20030065257
 query_params = st.experimental_get_query_params()
