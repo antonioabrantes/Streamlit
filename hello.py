@@ -25,20 +25,20 @@ def conectar_url(url,return_json=False):
     else:
         return(f"Erro: {response.status_code}")
 
-diretorio_corrente = os.getcwd() 
-st.write(f"O diretório corrente é: {diretorio_corrente}")
-txt_file = "teste.txt"
-texto = "testando"
-with open (txt_file,"w",encoding="utf-8") as arquivo:
-   arquivo.write(texto)
-if os.path.exists(txt_file):
-    st.write(f"O arquivo {txt_file} existe")
-else:
-    st.write(f"O arquivo {txt_file} não existe")
-arquivos_e_pastas = os.listdir()
-arquivos = [f for f in arquivos_e_pastas if os.path.isfile(f)]
-for arquivo in arquivos:
-    st.write(arquivo)
+#diretorio_corrente = os.getcwd() 
+#st.write(f"O diretório corrente é: {diretorio_corrente}")
+#txt_file = "teste.txt"
+#texto = "testando"
+#with open (txt_file,"w",encoding="utf-8") as arquivo:
+#   arquivo.write(texto)
+#if os.path.exists(txt_file):
+#    st.write(f"O arquivo {txt_file} existe")
+#else:
+#    st.write(f"O arquivo {txt_file} não existe")
+#arquivos_e_pastas = os.listdir()
+#arquivos = [f for f in arquivos_e_pastas if os.path.isfile(f)]
+#for arquivo in arquivos:
+#    st.write(arquivo)
 with open(txt_file, "rb") as file:
     st.download_button(
         label="Baixar teste.txt",
@@ -128,9 +128,6 @@ st.write("====")
 query = f"compare o pedido em exame: {texto_pedido} e o documento D1: {texto_D1} e aponte as diferenças"
 resposta = chain.invoke({"user_input":f"{query}"})
 st.write(f"Comparação: {resposta}")
-
-
-
 
 
 
