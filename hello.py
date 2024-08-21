@@ -113,20 +113,20 @@ resposta = chain.invoke({"user_input":f"{query}"})
 st.write(f"Resumo D1 {doc}: {resposta}")
 st.write("====")
 output = f"Resumo D1 {doc}: {resposta}"
-output = output."===="
+output = output + "===="
 
 query = f"resuma os problemas técnicos apontados em D1: {texto_D1}"
 resposta = chain.invoke({"user_input":f"{query}"})
 st.write(f"Problemas técnicos D1 {doc}: {resposta}")
 st.write("====")
-output = output.f"Problemas técnicos D1 {doc}: {resposta}"
-output = output."===="
+output = output + f"Problemas técnicos D1 {doc}: {resposta}"
+output = output + "===="
 
 query = f"compare o pedido em exame: {texto_pedido} e o documento D1: {texto_D1} e aponte as diferenças"
 resposta = chain.invoke({"user_input":f"{query}"})
 st.write(f"Comparação: {resposta}")
-output = output.f"Comparação: {resposta}"
-output = output."===="
+output = output + f"Comparação: {resposta}"
+output = output + "===="
 
 with open ("backup.txt","a",encoding="utf-8") as arquivo:
    arquivo.write(output)
@@ -138,7 +138,6 @@ with open(txt_file, "rb") as file:
         file_name="backup.txt",
         mime="text/plain"
     )
-
 
 #import streamlit as st
 #import json
