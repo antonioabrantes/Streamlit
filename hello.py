@@ -19,7 +19,7 @@ st.write(f"Doc: {doc}")
 
 load_dotenv()
 open_api_key = os.getenv("OPENAI_API_KEY2")
-st.write(open_api_key)
+#st.write(open_api_key)
 
 llm = ChatOpenAI(api_key=open_api_key)
 out_parser = StrOutputParser()
