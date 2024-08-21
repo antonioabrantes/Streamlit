@@ -4,9 +4,30 @@ from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 import streamlit as st
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+import json
+import requests
+
+def conectar_url(url,return_json=False):
+    headers = {
+        "Accept": "application/json",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+    }
+    response = requests.get(url,headers=headers)
+    if response.status_code == 200:
+        if return_json:
+            data = response.json()
+            json_data = json.dumps(data, indent=4)
+            return(json_data)
+        else:
+            return response.text
+    else:
+        return(f"Erro: {response.status_code}")
+
 
 # Captura os parâmetros da URL
-# http://localhost:8501/?numero=valor1&doc=valor2
+# https://app-helloabrantes.streamlit.app/?numero=112012018157&doc=US20030065257
 query_params = st.experimental_get_query_params()
 
 # Acessa os valores dos parâmetros
@@ -31,10 +52,65 @@ prompt = ChatPromptTemplate.from_messages(
 
 chain = prompt | llm | out_parser
 
-query = "Qual a capital do Brasil?"
-#query = texto
+# query = "Qual a capital do Brasil?"
+# resposta = chain.invoke({"user_input":f"{query}"})
+# st.write(resposta)
+
+# Primeira etapa: obter resumo d documento em exame, uma vez que relatório descritivo não está disponível
+# https://patents.google.com/patent/BR112012018157A2/pt?oq=BR112012018157
+# numero = '112012018157'
+url = f"https://patents.google.com/patent/BR{numero}A2/pt?oq=BR{numero}"
+#data = conectar_url(url,return_json=False)
+#st.write(data)
+html = urlopen(url)
+#print(html.read())
+bs = BeautifulSoup(html.read(),'html.parser')
+#print(bs.title)
+nameList = bs.findAll("div", {"class":"abstract"})
+texto = ''
+for name in nameList:
+    #st.write(name.getText())
+    texto = name.getText()
+
+# Segunda etapa: obter relatório de D1
+# doc = 'US20030065257'
+url = f"https://patents.google.com/patent/{doc}A1/en?oq={doc}"
+data = conectar_url(url,return_json=False)
+#print(data)
+html = urlopen(url)
+#print(html.read())
+bs = BeautifulSoup(html.read(),'html.parser')
+#print(bs.title)
+nameList = bs.findAll("div", {"class":"abstract"})
+resumo_D1 = ''
+for name in nameList:
+    st.write(name.getText())
+    resumo_D1 = name.getText()
+
+texto_D1 = ''
+nameList = bs.findAll("section", {"itemprop":"description"})
+for name in nameList:
+    #st.write(name.getText())
+    texto_D1 = name.getText()
+
+# Usar llm para fazer resumo de D1 e comparar com pedido em exame
+query = f"resuma o documento D1: {texto_D1}"
 resposta = chain.invoke({"user_input":f"{query}"})
-st.write(resposta)
+st.write(f"Resumo D1: {resposta}")
+st.write("====")
+
+query = f"resuma os problemas técnicos apontados em D1: {texto_D1}"
+resposta = chain.invoke({"user_input":f"{query}"})
+st.write(f"Problemas técnicos D1: {resposta}")
+st.write("====")
+
+query = f"resuma o pedido em exame: {texto_pedido} e o documento D1: {texto} e aponte as diferenças"
+resposta = chain.invoke({"user_input":f"{query}"})
+st.write(f"Comparação: {resposta}")
+
+
+
+
 
 
 #import streamlit as st
