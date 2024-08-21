@@ -17,3 +17,11 @@ pypdf
 tiktoken
 faiss-cpu
 transformers
+openai
+langchain
+langchain-community 
+langchain-core
+pypdf
+beautifulsoup4
+langchain_openai
+chromadb
