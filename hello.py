@@ -141,14 +141,19 @@ with open("backup.txt", "rb") as file:
 #import streamlit as st
 #import json
 #from flask import Flask, request, jsonify
-
 #app = Flask(__name__)
-
 #@app.route('/data', methods=['GET'])
 #def get_data():
 #    param1 = request.args.get('param1')
 #    param2 = request.args.get('param2')
 #    return jsonify({"param1": nome, "param2": idade})
+#if __name__ == '__main__':
+#    app.run(port=5000)
 
+#from flask import Flask, send_file
+#app = Flask(__name__)
+#@app.route('/download-teste.txt')
+#def download_file():
+#    return send_file('teste.txt', as_attachment=True)
 #if __name__ == '__main__':
 #    app.run(port=5000)
