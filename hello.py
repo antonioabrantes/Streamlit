@@ -18,3 +18,7 @@ param2 = query_params.get('param2', [''])[0]
 # Exibir os valores no Streamlit
 st.write(f"Valor de param1: {param1}")
 st.write(f"Valor de param2: {param2}")
+
+texto = "<xml>Testando</xml>"
+write open('teste.txt','w',encoding='utf-8') as arquivo:
+    arquivo.write(texto)
