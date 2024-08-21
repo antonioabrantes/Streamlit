@@ -67,10 +67,10 @@ html = urlopen(url)
 bs = BeautifulSoup(html.read(),'html.parser')
 #print(bs.title)
 nameList = bs.findAll("div", {"class":"abstract"})
-texto = ''
+texto_pedido = ''
 for name in nameList:
     #st.write(name.getText())
-    texto = name.getText()
+    texto_pedido = name.getText()
 
 # Segunda etapa: obter relatório de D1
 # doc = 'US20030065257'
@@ -96,12 +96,12 @@ for name in nameList:
 # Usar llm para fazer resumo de D1 e comparar com pedido em exame
 query = f"resuma o documento D1: {texto_D1}"
 resposta = chain.invoke({"user_input":f"{query}"})
-st.write(f"Resumo D1: {resposta}")
+st.write(f"Resumo D1 {doc}: {resposta}")
 st.write("====")
 
 query = f"resuma os problemas técnicos apontados em D1: {texto_D1}"
 resposta = chain.invoke({"user_input":f"{query}"})
-st.write(f"Problemas técnicos D1: {resposta}")
+st.write(f"Problemas técnicos D1 {doc}: {resposta}")
 st.write("====")
 
 query = f"resuma o pedido em exame: {texto_pedido} e o documento D1: {texto} e aponte as diferenças"
