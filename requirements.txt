@@ -17,4 +17,3 @@ pypdf
 tiktoken
 faiss-cpu
 transformers
-flask

@@ -6,15 +6,16 @@ from dotenv import load_dotenv
 #from langchain_core.prompts import ChatPromptTemplate
 #from langchain.chains import ConversationChain
 
+import streamlit as st
 
-app = Flask(__name__)
+# Captura os parâmetros da URL
+# http://localhost:8501/?param1=valor1&param2=valor2
+query_params = st.experimental_get_query_params()
 
-@app.route('/')
-def homepage():
-  return 'Esta é a homepage do site'
+# Acessa os valores dos parâmetros
+param1 = query_params.get('param1', [''])[0]
+param2 = query_params.get('param2', [''])[0]
 
-@app.route('/contatos')
-def contatos():
-  return 'Esta é a lista de contatos'
-
-app.run(host='0.0.0.0')
+# Exibir os valores no Streamlit
+st.write(f"Valor de param1: {param1}")
+st.write(f"Valor de param2: {param2}")
