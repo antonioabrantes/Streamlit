@@ -25,7 +25,7 @@ def conectar_url(url,return_json=False):
     else:
         return(f"Erro: {response.status_code}")
 
-diretorio_corrente = os.getcwd()
+diretorio_corrente = os.getcwd() 
 st.write(f"O diretório corrente é: {diretorio_corrente}")
 txt_file = "teste.txt"
 texto = "testando"
