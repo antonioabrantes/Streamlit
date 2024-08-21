@@ -39,7 +39,7 @@ arquivos_e_pastas = os.listdir()
 arquivos = [f for f in arquivos_e_pastas if os.path.isfile(f)]
 for arquivo in arquivos:
     st.write(arquivo)
-with open(file_path, "rb") as file:
+with open(txt_file, "rb") as file:
     st.download_button(
         label="Baixar teste.txt",
         data=file,
