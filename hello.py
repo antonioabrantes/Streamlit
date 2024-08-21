@@ -84,7 +84,7 @@ bs = BeautifulSoup(html.read(),'html.parser')
 nameList = bs.findAll("div", {"class":"abstract"})
 resumo_D1 = ''
 for name in nameList:
-    st.write(name.getText())
+    #st.write(name.getText())
     resumo_D1 = name.getText()
 
 texto_D1 = ''
