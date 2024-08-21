@@ -25,6 +25,16 @@ def conectar_url(url,return_json=False):
     else:
         return(f"Erro: {response.status_code}")
 
+diretorio_corrente = os.getcwd()
+st.write(f"O diretório corrente é: {diretorio_corrente}")
+txt_file = "teste.txt"
+texto = "testando"
+with open (txt_file,"w",encoding="utf-8") as arquivo:
+   arquivo.write(texto)
+if os.path.exists(txt_file):
+    st.write(f"O arquivo {txt_file} existe")
+else:
+    st.write(f"O arquivo {txt_file} não existe")
 
 # Captura os parâmetros da URL
 # https://app-helloabrantes.streamlit.app/?numero=112012018157&doc=US20030065257
