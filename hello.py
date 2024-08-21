@@ -35,6 +35,10 @@ if os.path.exists(txt_file):
     st.write(f"O arquivo {txt_file} existe")
 else:
     st.write(f"O arquivo {txt_file} não existe")
+arquivos_e_pastas = os.listdir()
+arquivos = [f for f in arquivos_e_pastas if os.path.isfile(f)]
+for arquivo in arquivos:
+    st.write(arquivo)
 
 # Captura os parâmetros da URL
 # https://app-helloabrantes.streamlit.app/?numero=112012018157&doc=US20030065257
