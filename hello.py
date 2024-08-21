@@ -131,7 +131,7 @@ output = output + "===="
 with open ("backup.txt","a",encoding="utf-8") as arquivo:
    arquivo.write(output)
    
-with open(txt_file, "rb") as file:
+with open("backup.txt", "rb") as file:
     st.download_button(
         label="Baixar backup.txt",
         data=file,
