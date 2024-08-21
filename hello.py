@@ -39,13 +39,6 @@ def conectar_url(url,return_json=False):
 #arquivos = [f for f in arquivos_e_pastas if os.path.isfile(f)]
 #for arquivo in arquivos:
 #    st.write(arquivo)
-with open(txt_file, "rb") as file:
-    st.download_button(
-        label="Baixar teste.txt",
-        data=file,
-        file_name="teste.txt",
-        mime="text/plain"
-    )
     
 # Captura os parâmetros da URL
 # https://app-helloabrantes.streamlit.app/?numero=112012018157&doc=US20030065257
@@ -119,16 +112,32 @@ query = f"resuma o documento D1: {texto_D1}"
 resposta = chain.invoke({"user_input":f"{query}"})
 st.write(f"Resumo D1 {doc}: {resposta}")
 st.write("====")
+output = f"Resumo D1 {doc}: {resposta}"
+output = output."===="
 
 query = f"resuma os problemas técnicos apontados em D1: {texto_D1}"
 resposta = chain.invoke({"user_input":f"{query}"})
 st.write(f"Problemas técnicos D1 {doc}: {resposta}")
 st.write("====")
+output = output.f"Problemas técnicos D1 {doc}: {resposta}"
+output = output."===="
 
 query = f"compare o pedido em exame: {texto_pedido} e o documento D1: {texto_D1} e aponte as diferenças"
 resposta = chain.invoke({"user_input":f"{query}"})
 st.write(f"Comparação: {resposta}")
+output = output.f"Comparação: {resposta}"
+output = output."===="
 
+with open ("backup.txt","a",encoding="utf-8") as arquivo:
+   arquivo.write(output)
+   
+with open(txt_file, "rb") as file:
+    st.download_button(
+        label="Baixar backup.txt",
+        data=file,
+        file_name="backup.txt",
+        mime="text/plain"
+    )
 
 
 #import streamlit as st
