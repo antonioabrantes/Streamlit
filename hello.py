@@ -104,7 +104,7 @@ resposta = chain.invoke({"user_input":f"{query}"})
 st.write(f"Problemas técnicos D1 {doc}: {resposta}")
 st.write("====")
 
-query = f"resuma o pedido em exame: {texto_pedido} e o documento D1: {texto} e aponte as diferenças"
+query = f"compare o pedido em exame: {texto_pedido} e o documento D1: {texto_D1} e aponte as diferenças"
 resposta = chain.invoke({"user_input":f"{query}"})
 st.write(f"Comparação: {resposta}")
 
