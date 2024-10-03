@@ -73,59 +73,63 @@ chain = prompt | llm | out_parser
 # Primeira etapa: obter resumo d documento em exame, uma vez que relatório descritivo não está disponível
 # https://patents.google.com/patent/BR112012018157A2/pt?oq=BR112012018157
 # numero = '112012018157'
-url = f"https://patents.google.com/patent/BR{numero}A2/pt?oq=BR{numero}"
-#data = conectar_url(url,return_json=False)
-#st.write(data)
-html = urlopen(url)
-#print(html.read())
-bs = BeautifulSoup(html.read(),'html.parser')
-#print(bs.title)
-nameList = bs.findAll("div", {"class":"abstract"})
-texto_pedido = ''
-for name in nameList:
-    #st.write(name.getText())
-    texto_pedido = name.getText()
+
+if numero:
+    url = f"https://patents.google.com/patent/BR{numero}A2/pt?oq=BR{numero}"
+    #data = conectar_url(url,return_json=False)
+    #st.write(data)
+    html = urlopen(url)
+    #print(html.read())
+    bs = BeautifulSoup(html.read(),'html.parser')
+    #print(bs.title)
+    nameList = bs.findAll("div", {"class":"abstract"})
+    texto_pedido = ''
+    for name in nameList:
+        #st.write(name.getText())
+        texto_pedido = name.getText()
 
 # Segunda etapa: obter relatório de D1
 # doc = 'US20030065257'
-url = f"https://patents.google.com/patent/{doc}A1/en?oq={doc}"
-data = conectar_url(url,return_json=False)
-#print(data)
-html = urlopen(url)
-#print(html.read())
-bs = BeautifulSoup(html.read(),'html.parser')
-#print(bs.title)
-nameList = bs.findAll("div", {"class":"abstract"})
-resumo_D1 = ''
-for name in nameList:
-    #st.write(name.getText())
-    resumo_D1 = name.getText()
+if doc:
+    url = f"https://patents.google.com/patent/{doc}A1/en?oq={doc}"
+    data = conectar_url(url,return_json=False)
+    #print(data)
+    html = urlopen(url)
+    #print(html.read())
+    bs = BeautifulSoup(html.read(),'html.parser')
+    #print(bs.title)
+    nameList = bs.findAll("div", {"class":"abstract"})
+    resumo_D1 = ''
+    for name in nameList:
+        #st.write(name.getText())
+        resumo_D1 = name.getText()
 
-texto_D1 = ''
-nameList = bs.findAll("section", {"itemprop":"description"})
-for name in nameList:
-    #st.write(name.getText())
-    texto_D1 = name.getText()
+    texto_D1 = ''
+    nameList = bs.findAll("section", {"itemprop":"description"})
+    for name in nameList:
+        #st.write(name.getText())
+        texto_D1 = name.getText()
 
 # Usar llm para fazer resumo de D1 e comparar com pedido em exame
-query = f"resuma o documento D1: {texto_D1}"
-resposta = chain.invoke({"user_input":f"{query}"})
-st.write(f"Resumo D1 {doc}: {resposta}")
-st.write("====")
-output = f"Resumo D1 {doc}: {resposta}"
-output = output + "\n ===="
+if doc and numero:
+    query = f"resuma o documento D1: {texto_D1}"
+    resposta = chain.invoke({"user_input":f"{query}"})
+    st.write(f"Resumo D1 {doc}: {resposta}")
+    st.write("====")
+    output = f"Resumo D1 {doc}: {resposta}"
+    output = output + "\n ===="
 
-query = f"resuma os problemas técnicos apontados em D1: {texto_D1}"
-resposta = chain.invoke({"user_input":f"{query}"})
-st.write(f"Problemas técnicos D1 {doc}: {resposta}")
-st.write("====")
-output = output + f"\n Problemas técnicos D1 {doc}: {resposta}"
-output = output + "\n ===="
+    query = f"resuma os problemas técnicos apontados em D1: {texto_D1}"
+    resposta = chain.invoke({"user_input":f"{query}"})
+    st.write(f"Problemas técnicos D1 {doc}: {resposta}")
+    st.write("====")
+    output = output + f"\n Problemas técnicos D1 {doc}: {resposta}"
+    output = output + "\n ===="
 
-query = f"compare o pedido em exame: {texto_pedido} e o documento D1: {texto_D1} e aponte as diferenças"
-resposta = chain.invoke({"user_input":f"{query}"})
-st.write(f"Comparação: {resposta}")
-output = output + f"\n Comparação: {resposta} \n\n"
+    query = f"compare o pedido em exame: {texto_pedido} e o documento D1: {texto_D1} e aponte as diferenças"
+    resposta = chain.invoke({"user_input":f"{query}"})
+    st.write(f"Comparação: {resposta}")
+    output = output + f"\n Comparação: {resposta} \n\n"
 
 #with open ("backup.txt","a",encoding="utf-8") as arquivo:
 #   arquivo.write(output)
