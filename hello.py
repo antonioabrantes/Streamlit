@@ -110,8 +110,6 @@ if doc:
         #st.write(name.getText())
         texto_D1 = name.getText()
 
-# Usar llm para fazer resumo de D1 e comparar com pedido em exame
-if doc and numero:
     query = f"resuma o documento D1: {texto_D1}"
     resposta = chain.invoke({"user_input":f"{query}"})
     st.write(f"Resumo D1 {doc}: {resposta}")
@@ -126,6 +124,8 @@ if doc and numero:
     output = output + f"\n Problemas técnicos D1 {doc}: {resposta}"
     output = output + "\n ===="
 
+# Usar llm para fazer resumo de D1 e comparar com pedido em exame
+if doc and numero:
     query = f"compare o pedido em exame: {texto_pedido} e o documento D1: {texto_D1} e aponte as diferenças"
     resposta = chain.invoke({"user_input":f"{query}"})
     st.write(f"Comparação: {resposta}")
