@@ -127,16 +127,16 @@ resposta = chain.invoke({"user_input":f"{query}"})
 st.write(f"Comparação: {resposta}")
 output = output + f"\n Comparação: {resposta} \n\n"
 
-with open ("backup.txt","a",encoding="utf-8") as arquivo:
-   arquivo.write(output)
+#with open ("backup.txt","a",encoding="utf-8") as arquivo:
+#   arquivo.write(output)
    
-with open("backup.txt", "rb") as file:
-    st.download_button(
-        label="Baixar backup.txt",
-        data=file,
-        file_name="backup.txt",
-        mime="text/plain"
-    )
+#with open("backup.txt", "rb") as file:
+#    st.download_button(
+#        label="Baixar backup.txt",
+#        data=file,
+#        file_name="backup.txt",
+#        mime="text/plain"
+#    )
 
 #import streamlit as st
 #import json
